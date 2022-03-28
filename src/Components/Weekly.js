@@ -26,7 +26,7 @@ import { useState } from "react";
 import { Box } from "@mui/system";
 import { API } from "../global";
 
-export function Weekly() {
+export function Weekly({ color }) {
   const [data, setData] = useState([]);
   const history = useHistory();
   useEffect(() => {
@@ -65,7 +65,7 @@ export function Weekly() {
 
   return (
     <>
-      <Dashboard />
+      <Dashboard color={color} />
       <Container>
         <Typography
           sx={{

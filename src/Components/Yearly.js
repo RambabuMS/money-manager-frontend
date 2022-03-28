@@ -25,7 +25,7 @@ import IconButton from "@mui/material/IconButton";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { API } from "../global";
 
-export function Yearly() {
+export function Yearly({ color }) {
   const [data, setData] = useState([]);
   const history = useHistory();
   useEffect(() => {
@@ -64,7 +64,7 @@ export function Yearly() {
   console.log(type);
   return (
     <>
-      <Dashboard />
+      <Dashboard color={color} />
       <Container>
         <Typography
           sx={{

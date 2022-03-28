@@ -143,13 +143,13 @@ function App() {
               <Dashboard color={color} />
             </Route>
             <Route path="/weekly">
-              <Weekly />
+              <Weekly color={color} />
             </Route>
             <Route path="/monthly">
-              <Monthly />
+              <Monthly color={color} />
             </Route>
             <Route path="/yearly">
-              <Yearly />
+              <Yearly color={color} />
             </Route>
             <Route path="/history">
               <h1>History of Income and Expenses</h1>
