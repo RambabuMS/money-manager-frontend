@@ -128,11 +128,11 @@ export function Home() {
     },
     {
       desc: "Here You can Trace your Total Income and Expense of your Personal and office revenue with the help of charts",
-      img: edit,
+      img: hist,
     },
     {
       desc: "Here you can edit your income and expense on your weekly data",
-      img: hist,
+      img: edit,
     },
   ];
 
