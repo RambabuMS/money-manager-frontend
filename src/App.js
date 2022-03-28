@@ -47,11 +47,6 @@ function App() {
       onClick: "/history",
       icon: <WorkHistoryIcon />,
     },
-    // {
-    //   name: "Edit Page",
-    //   onClick: "/edit",
-    //   icon: <EditTwoToneIcon />,
-    // },
   ];
 
   const [state, setState] = useState({
@@ -153,10 +148,10 @@ function App() {
               <Yearly />
             </Route>
             <Route path="/history">
-              <h1>History of Income and Expense</h1>
+              <h1>History of Income and Expenses</h1>
               <History />
             </Route>
-            <Route path="/edit/:id">
+            <Route path="/transaction/edit/:id">
               <EditData />
             </Route>
             <Route path="**">

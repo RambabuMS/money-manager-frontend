@@ -2,16 +2,16 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
+import { API } from "../global";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
+//History of Total and income and expenses
 export function History() {
   const [data, setData] = useState([]);
   useEffect(() => {
     const loadData = async () => {
-      var response = await axios.get(
-        "https://me-expense-tracker.herokuapp.com/transaction"
-      );
+      var response = await axios.get(`${API}/transaction`);
       setData(response.data);
     };
     loadData();
@@ -46,7 +46,7 @@ export function History() {
       {
         label: "# of Votes",
         data: [income, expense],
-        backgroundColor: ["rgba(255, 99, 132, 0.2)", "rgba(54, 162, 235, 0.2)"],
+        backgroundColor: ["lightgreen", "red"],
         borderColor: ["rgba(255, 99, 1)", "rgba(54, 162, 23)"],
         borderWidth: 1,
       },
@@ -58,7 +58,7 @@ export function History() {
       {
         label: "# of Votes",
         data: [officeIncome, officeexpense],
-        backgroundColor: ["rgb(255, 99, 132)", "rgb(54, 162, 235)"],
+        backgroundColor: ["lightblue", "lightgrey"],
         borderColor: ["rgba(255, 91, 122, 1)", "rgba(54, 122, 235, 1)"],
         borderWidth: 1,
       },
@@ -70,7 +70,7 @@ export function History() {
       {
         label: "# of Votes",
         data: [personalIncome, personalexpense],
-        backgroundColor: ["rgb(75, 192, 192)", "rgb(255, 205, 86)"],
+        backgroundColor: ["indigo", "cyan"],
         borderColor: ["rgb(75, 192, 192)", "rgb(255, 205, 86)"],
         borderWidth: 1,
       },

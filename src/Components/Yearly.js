@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Dashboard } from "./Dashboard";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
 import {
   Container,
   FormControl,
@@ -19,14 +20,17 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { Box } from "@mui/system";
+import Tooltip from "@mui/material/Tooltip";
+import IconButton from "@mui/material/IconButton";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import { API } from "../global";
 
 export function Yearly() {
   const [data, setData] = useState([]);
+  const history = useHistory();
   useEffect(() => {
     const loadData = async () => {
-      var response = await axios.get(
-        "https://me-expense-tracker.herokuapp.com/transaction"
-      );
+      var response = await axios.get(`${API}/transaction`);
       setData(response.data);
     };
     loadData();
@@ -70,7 +74,7 @@ export function Yearly() {
             mb: 3,
           }}
         >
-          Yearly
+          Yearly Transactions
         </Typography>
         {/* <Button sx={{float:'right'}}>Sort by</Button> */}
         <Box sx={{ textAlign: "center" }}>
@@ -141,6 +145,9 @@ export function Yearly() {
                   <TableCell sx={{ fontWeight: "600", textAlign: "center" }}>
                     Type
                   </TableCell>
+                  <TableCell sx={{ fontWeight: "600", textAlign: "center" }}>
+                    Delete
+                  </TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -193,6 +200,23 @@ export function Yearly() {
                           <TableCell sx={{ textAlign: "center" }}>
                             {row.type.charAt(0).toUpperCase() +
                               row.type.slice(1)}
+                          </TableCell>
+                          <TableCell sx={{ textAlign: "center" }}>
+                            {
+                              <Tooltip title="Delete">
+                                <IconButton
+                                  aria-label="delete button"
+                                  color="secondary"
+                                  onClick={() => {
+                                    fetch(`${API}/transaction/${row._id}`, {
+                                      method: "DELETE",
+                                    }).then(() => history.push("/dashboard"));
+                                  }}
+                                >
+                                  <DeleteForeverIcon />
+                                </IconButton>
+                              </Tooltip>
+                            }
                           </TableCell>
                         </TableRow>
                       );
@@ -250,6 +274,23 @@ export function Yearly() {
                             <TableCell sx={{ textAlign: "center" }}>
                               {row.type.charAt(0).toUpperCase() +
                                 row.type.slice(1)}
+                            </TableCell>
+                            <TableCell sx={{ textAlign: "center" }}>
+                              {
+                                <Tooltip title="Delete">
+                                  <IconButton
+                                    aria-label="delete button"
+                                    color="secondary"
+                                    onClick={() => {
+                                      fetch(`${API}/transaction/${row._id}`, {
+                                        method: "DELETE",
+                                      }).then(() => history.push("/dashboard"));
+                                    }}
+                                  >
+                                    <DeleteForeverIcon />
+                                  </IconButton>
+                                </Tooltip>
+                              }
                             </TableCell>
                           </TableRow>
                         );

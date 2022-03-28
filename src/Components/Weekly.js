@@ -21,17 +21,17 @@ import {
 import EditIcon from "@mui/icons-material/Edit";
 import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { useState } from "react";
 import { Box } from "@mui/system";
+import { API } from "../global";
 
 export function Weekly() {
   const [data, setData] = useState([]);
   const history = useHistory();
   useEffect(() => {
     const loadData = async () => {
-      var response = await axios.get(
-        "https://me-expense-tracker.herokuapp.com/transaction"
-      );
+      var response = await axios.get(`${API}/transaction`);
       setData(response.data);
     };
     loadData();
@@ -62,6 +62,7 @@ export function Weekly() {
   const handleType = (e) => {
     setType(e.target.value);
   };
+
   return (
     <>
       <Dashboard />
@@ -74,7 +75,7 @@ export function Weekly() {
             mb: 3,
           }}
         >
-          Weekly
+          Weekly Transactions
         </Typography>
         {/* <Button sx={{float:'right'}}>Sort by</Button> */}
         <Box sx={{ textAlign: "center" }}>
@@ -148,6 +149,9 @@ export function Weekly() {
                   <TableCell sx={{ fontWeight: "600", textAlign: "center" }}>
                     Edit
                   </TableCell>
+                  <TableCell sx={{ fontWeight: "600", textAlign: "center" }}>
+                    Delete
+                  </TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -204,6 +208,12 @@ export function Weekly() {
                             {
                               <Tooltip title="Edit">
                                 <IconButton
+                                  id="btn"
+                                  disabled={
+                                    row.time <= row.time + 1
+                                      ? IconButton.enabled
+                                      : IconButton.disabled
+                                  }
                                   aria-label="edit button"
                                   onClick={() =>
                                     history.push(`/transaction/edit/${row._id}`)
@@ -211,6 +221,23 @@ export function Weekly() {
                                   color="secondary"
                                 >
                                   <EditIcon />
+                                </IconButton>
+                              </Tooltip>
+                            }
+                          </TableCell>
+                          <TableCell sx={{ textAlign: "center" }}>
+                            {
+                              <Tooltip title="Delete">
+                                <IconButton
+                                  aria-label="delete button"
+                                  color="secondary"
+                                  onClick={() => {
+                                    fetch(`${API}/transaction/${row._id}`, {
+                                      method: "DELETE",
+                                    }).then(() => history.push("/dashboard"));
+                                  }}
+                                >
+                                  <DeleteForeverIcon />
                                 </IconButton>
                               </Tooltip>
                             }
@@ -277,6 +304,7 @@ export function Weekly() {
                                 <Tooltip title="Edit">
                                   <IconButton
                                     aria-label="edit button"
+                                    id="btn"
                                     onClick={() =>
                                       history.push(
                                         `/transaction/edit/${row._id}`
@@ -285,6 +313,23 @@ export function Weekly() {
                                     color="secondary"
                                   >
                                     <EditIcon />
+                                  </IconButton>
+                                </Tooltip>
+                              }
+                            </TableCell>
+                            <TableCell sx={{ textAlign: "center" }}>
+                              {
+                                <Tooltip title="Delete">
+                                  <IconButton
+                                    aria-label="delete button"
+                                    color="secondary"
+                                    onClick={() => {
+                                      fetch(`${API}/transaction/${row._id}`, {
+                                        method: "DELETE",
+                                      }).then(() => history.push("/dashboard"));
+                                    }}
+                                  >
+                                    <DeleteForeverIcon />
                                   </IconButton>
                                 </Tooltip>
                               }
