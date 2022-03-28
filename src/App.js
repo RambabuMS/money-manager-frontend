@@ -88,6 +88,7 @@ function App() {
     </Box>
   );
   const [mode, setMode] = useState("dark");
+  const [color, setColor] = useState("white");
   const theme = createTheme({
     palette: {
       mode: mode,
@@ -124,7 +125,10 @@ function App() {
                 startIcon={
                   mode === "dark" ? <Brightness7Icon /> : <Brightness4Icon />
                 }
-                onClick={() => setMode(mode === "light" ? "dark" : "light")}
+                onClick={() => {
+                  setMode(mode === "light" ? "dark" : "light");
+                  setColor(mode === "dark" ? "black" : "white");
+                }}
               >
                 {mode === "light" ? "dark" : "light"} Mode
               </Button>
@@ -136,7 +140,7 @@ function App() {
               <Home />
             </Route>
             <Route path="/dashboard">
-              <Dashboard />
+              <Dashboard color={color} />
             </Route>
             <Route path="/weekly">
               <Weekly />
